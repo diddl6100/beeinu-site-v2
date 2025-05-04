@@ -1,0 +1,529 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BeeInu - The Hive Awakens</title>
+<style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('forest-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+    .hero {
+      text-align: center;
+      padding: 100px 20px 60px;
+      background: rgba(0, 0, 0, 0.6);
+    }
+    .hero h1 {
+      font-size: 3rem;
+      background: linear-gradient(90deg, #ff66cc, #ffff66);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0 0 20px;
+    }
+    .hero p {
+      font-size: 1.4rem;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.6;
+    }
+    .section {
+      max-width: 850px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      color: #222;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+    .section h2 {
+      text-align: center;
+      background: linear-gradient(90deg, #ff66cc, #ffff66);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2rem;
+    }
+    .section p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      text-align: center;
+    }
+    .buy-btn {
+      display: inline-block;
+      margin: 20px auto;
+      padding: 12px 24px;
+      font-size: 1.2rem;
+      background: #ffdd57;
+      color: #000;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .mascot {
+      display: block;
+      margin: 30px auto;
+      width: 300px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #eee;
+      font-size: 0.9rem;
+    }
+  
+    html, body {
+      height: auto !important;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    .container {
+      overflow: visible !important;
+    }
+    
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .hero p {
+    font-size: 1.1rem;
+  }
+  .section {
+    margin: 20px 10px;
+    padding: 20px;
+  }
+  .mascot {
+    width: 90%;
+    max-width: 280px;
+  }
+  body {
+    background-attachment: scroll !important;
+    background-size: cover !important;
+  }
+}
+
+/* CTA button scroll-in zoom effect */
+.cta-button {
+  transform: scale(0.9);
+  opacity: 0;
+  transition: all 0.6s ease-out;
+}
+.cta-button.visible {
+  opacity: 1;
+  transform: scale(1.15);
+  animation: shrinkBack 0.5s ease forwards 0.6s;
+}
+@keyframes shrinkBack {
+  to {
+    transform: scale(1);
+  }
+}
+</style>
+<meta content="https://beeinuofficial.netlify.app/og-image.jpg" property="og:image"/><meta content="ca-pub-2963932568301570" name="google-adsense-account"/><style>
+/* Scroll fade in */
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+.scroll-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* CTA button effect */
+.cta-button {
+  transition: all 0.3s ease-in-out;
+}
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #ffd700aa;
+}
+</style><style>
+/* 1. Scroll Reveal (up, left, right) */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.scroll-left {
+  transform: translateX(-40px);
+}
+.scroll-right {
+  transform: translateX(40px);
+}
+
+/* 2. CTA button glow + bounce */
+.cta-button {
+  transition: all 0.3s ease-in-out;
+}
+.cta-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px #ffd700aa;
+}
+
+/* 3. Roadmap card fade in */
+.roadmap-card {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 0.6s ease-out;
+}
+.roadmap-card.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 4. Tokenomics chart zoom */
+.tokenomics-chart {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.8s ease;
+}
+.tokenomics-chart.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 5. Hero background zoom effect */
+.hero-bg {
+  background-size: 105%;
+  animation: bgZoom 15s ease-in-out infinite alternate;
+}
+@keyframes bgZoom {
+  0% { background-size: 105%; }
+  100% { background-size: 110%; }
+}
+</style><style>
+#loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%%;
+  height: 100%%;
+  background-color: #fff;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #facc15;
+  border-radius: 50%%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0%% { transform: rotate(0deg); }
+  100%% { transform: rotate(360deg); }
+}
+
+.floating-buy {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: #ffcd00;
+  color: black;
+  padding: 12px 18px;
+  font-weight: bold;
+  border-radius: 30px;
+  box-shadow: 0 0 12px #ffcd00aa;
+  text-decoration: none;
+  z-index: 1000;
+  transition: transform 0.2s ease;
+}
+.floating-buy:hover {
+  transform: scale(1.1);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1050;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%%;
+  height: 100%%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.9);
+}
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%%;
+}
+.modal-close {
+  position: absolute;
+  top: 30px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+<style>
+@media (max-width: 768px) {
+  .twitter-timeline {
+    width: 100% !important;
+    height: 500px !important;
+  }
+}
+@media (min-width: 769px) {
+  .twitter-timeline {
+    width: 600px !important;
+    height: 600px !important;
+  }
+}
+</style>
+
+<style>
+/* Base layout adjustments */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+section {
+  padding: 60px 20px;
+  box-sizing: border-box;
+}
+
+/* Responsive typography */
+h1, h2, h3 {
+  font-size: 1.8em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+p {
+  font-size: 1em;
+  text-align: center;
+}
+
+/* Buttons */
+a.button, button {
+  display: inline-block;
+  font-size: 1em;
+  padding: 12px 24px;
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+a.button:hover, button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  h1, h2, h3 {
+    font-size: 1.4em;
+  }
+  p {
+    font-size: 0.95em;
+  }
+  .tokenomics-chart img, .twitter-timeline {
+    width: 100% !important;
+    height: auto !important;
+  }
+  .roadmap-card {
+    margin: 10px auto;
+    padding: 16px;
+  }
+  .floating-button {
+    bottom: 20px;
+    right: 20px;
+  }
+}
+</style>
+</head>
+<body>
+<a class="floating-buy" href="https://pump.fun/coin/AJR6jEDYe4YxVGPCb4eGE4GYjY8x3Z6AkcXmA4iApump">Buy Now</a>
+<div id="loader-wrapper">
+<div id="loader"></div>
+</div>
+<div class="hero">
+<img alt="BeeInu Logo" src="beeinulogo.png" style="max-width: 240px;"/>
+<h1>The Hive Awakens</h1>
+<p>They laughed at bees. Now they're stinging back. Join the decentralized swarm taking over Web3, one buzz at a time.</p>
+<img alt="BeeInu Mascot" class="mascot" src="beeinu-mascot.png"/>
+<div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-top: 40px;"><div style="display: flex; flex-direction: column; align-items: center;"><a class="buy-btn cta-button" href="https://pump.fun/coin/AJR6jEDYe4YxVGPCb4eGE4GYjY8x3Z6AkcXmA4iApump" target="_blank">Buy on Pump.Fun</a><p style="font-size: 0.8rem; margin-top: 8px; color: #000; background: #fff; padding: 6px 10px; border-radius: 6px; display: inline-block; overflow-wrap: break-word;">CA (PumpFun): AJR6jEDYe4YxVGPCb4eGE4GYjY8x3Z6AkcXmA4iApump</p></div><div style="display: flex; flex-direction: column; align-items: center;"><a class="buy-btn cta-button" href="https://moon.it/tokens/CHSDhsFVVzriSkRWiA5dCXJSRcif56ePe1UJq4Anmoon" target="_blank">Buy on Moon.it</a><p style="font-size: 0.8rem; margin-top: 8px; color: #000; background: #fff; padding: 6px 10px; border-radius: 6px; display: inline-block; overflow-wrap: break-word;">CA (MoonIt): CHSDhsFVVzriSkRWiA5dCXJSRcif56ePe1UJq4Anmoon</p></div></div></div>
+<div class="section">
+<div class="section">
+<h2>🐝 About BeeInu</h2>
+<p style="line-height: 1.8; font-size: 1.1em;">
+    BeeInu is a next-generation meme coin born at the intersection of decentralized culture and the resilience of nature.
+    Inspired by the unstoppable swarm mentality of bees and the loyalty of meme communities, BeeInu is more than just a token — it's a movement. <br/><br/>
+    With the rise of Web3, BeeInu empowers users to take part in shaping a truly community-driven ecosystem, where every meme, every NFT, and every decision stems from collective action.<br/><br/>
+    Our tokenomics are designed with sustainability in mind, and with one unique NFT minted to mark the genesis of this movement, we invite you to become part of the swarm and buzz louder than ever.
+  </p>
+</div>
+<h2>The Bee + Dog Fusion</h2>
+<p>BeeInu isn't just a coin. It's a creature of meme evolution. The courage of a dog. The organization of a hive. Together, they form a symbol of unstoppable community strength. We don't follow trends — we swarm them.</p>
+</div>
+<div class="section">
+<h2>Community-Driven Evolution</h2>
+<p>This isn't a top-down token. Every feature, every meme, every move is powered by YOU. The community leads, BeeInu follows. Our developers are our holders. Our roadmap is what the hive decides.</p>
+</div>
+<div class="section">
+<h2>Tokenomics Breakdown</h2>
+<ul style="list-style:none;padding-left:0;font-size:1rem;">
+<li><strong>70% - Liquidity Pool:</strong> Ensures strong trading foundation and stability.</li>
+<li><strong>15% - Marketing:</strong> Buzz creation, partnerships, and viral campaigns.</li>
+<li><strong>10% - Ecosystem Growth:</strong> Supporting future tools, staking, and more.</li>
+<li><strong>5% - Team &amp; Devs:</strong> Minimal allocation to support core contributors.</li>
+</ul>
+<img alt="BeeInu Tokenomics Chart" class="tokenomics-chart" src="BeeInu_Tokenomics_3D_With_Legend.png" style="max-width:100%;margin-top:20px;border-radius:12px;"/></div>
+<div class="section">
+<h2>The Buzz is Real</h2>
+<p>BeeInu is more than a meme coin. It's a movement. A swarm. A community fueled by creativity, chaos, and honey. The future is decentralized. The future is buzzing.</p>
+</div>
+<div class="section">
+<h2>Join the Hive</h2>
+<p><a class="buy-btn scroll-up cta-button scroll-reveal" href="https://x.com/beeinuofficial" target="_blank">Follow on Twitter</a>
+<a class="buy-btn scroll-up cta-button scroll-reveal" href="https://t.me/OfficialBeeInu" target="_blank">Join Telegram</a></p>
+</div>
+<script></script>
+<div class="section">
+<h2>BeeInu Roadmap</h2>
+<div class="container" style="display:grid;grid-template-columns:1fr;gap:30px;max-width:960px;margin:auto;padding:20px;">
+<div class="card" style="background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.1);padding:25px;">
+<h3 style="background:linear-gradient(90deg,#ff66cc,#ffff66);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:1.4rem;">Community-First Vision</h3>
+<p>BeeInu is hive-powered, not centralized. Every step we take begins with our community. From ideas to memes to development decisions, BeeInu is co-built by the swarm.</p>
+</div>
+<div class="card" style="background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.1);padding:25px;">
+<h3 style="background:linear-gradient(90deg,#ff66cc,#ffff66);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:1.4rem;">Trending in Crypto Culture</h3>
+<p>From Twitter memes to DEX buzz, BeeInu is climbing the ranks in crypto culture. No presale, just real viral energy fueled by Bee lovers around the world.</p>
+</div>
+<div class="card" style="background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.1);padding:25px;">
+<h3 style="background:linear-gradient(90deg,#ff66cc,#ffff66);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:1.4rem;">Accessible Crypto Trading</h3>
+<p>We make trading BeeInu fun and frictionless. With listings on meme-friendly platforms and lightning-fast swaps, anyone can join the hive with just a few taps.</p>
+</div>
+<div class="card" style="background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.1);padding:25px;">
+<h3 style="background:linear-gradient(90deg,#ff66cc,#ffff66);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:1.4rem;">Eco-Friendly Impact</h3>
+<p>BeeInu is a mission with a meme spirit. A portion of future revenue will go toward supporting bee conservation and environmental causes that keep the planet buzzing.</p>
+</div>
+<div class="section">
+<h2 style="text-align:center;">🐝 BeeInu NFT Minting</h2>
+<img alt="BeeInu NFT Preview" class="nft-clickable" src="beeinu-nft-preview.png" style="max-width:100%; border-radius:12px; margin-top:20px;"/>
+<p style="text-align:center; font-size:1.1rem; margin-top:16px;">
+    Get ready to mint your own BeeInu NFT! The swarm is preparing for something epic. 🐶✨
+  </p>
+<div class="section" style="padding: 60px 20px; background: #fffbe6; text-align: center;">
+<h2 style="font-size: 2em; margin-bottom: 20px;">🖼️ BeeInu Genesis NFT – Mint Now</h2>
+<p style="font-size: 1.1em; margin-bottom: 30px;">
+    The first and only BeeInu Genesis NFT has been minted!<br/>
+    It symbolizes the launch of a decentralized community powered by memes, unity, and purpose.<br/><br/>
+    Don't just hold a token. Own a piece of history.
+  </p>
+<a class="scroll-up cta-button scroll-reveal" href="https://solsea.io/n/H1GK2Xdvyv8efJa5LejWWREzESYvMhYurmgceiHXtnFn" style="display: inline-block; padding: 15px 25px; background: linear-gradient(90deg, #fbd14b, #f767a3); color: white; border-radius: 10px; font-weight: bold; text-decoration: none;" target="_blank">
+    🚀 View &amp; Mint NFT on Solsea
+  </a>
+</div>
+</div>
+<footer style="text-align:center;padding:20px;color:#333;font-size:0.9rem;font-weight:bold;">© 2025 BeeInu. Built for the swarm.</footer>
+</div>
+</div>
+<script></script>
+<div class="section"><h2>Download Whitepaper</h2><a class="scroll-up cta-button scroll-reveal" download="True" href="BeeInu_Whitepaper_TextOnly_WhiteBG.pdf" style="display:inline-block;padding:12px 20px;margin-top:10px;background:#ff66cc;color:white;border-radius:8px;text-decoration:none;font-weight:bold;max-width:100%;display:inline-block;text-align:center;">📄 Download BeeInu Whitepaper</a></div><script>
+document.addEventListener("DOMContentLoaded", function() {
+  const elements = document.querySelectorAll(".scroll-fade");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, { threshold: 0.1 });
+  elements.forEach(el => observer.observe(el));
+});
+</script><script>
+document.addEventListener("DOMContentLoaded", function() {
+  const allReveals = document.querySelectorAll(".scroll-reveal, .roadmap-card, .tokenomics-chart, .cta-button");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, { threshold: 0.1 });
+  allReveals.forEach(el => observer.observe(el));
+});
+</script>
+<div class="modal" id="nftModal">
+<span class="modal-close" id="modalClose">×</span>
+<img class="modal-content" id="modalImg"/>
+</div>
+<script>
+window.addEventListener("load", function() {
+  document.getElementById("loader-wrapper").style.display = "none";
+});
+
+document.querySelectorAll(".nft-clickable").forEach(img => {
+  img.addEventListener("click", function() {
+    const modal = document.getElementById("nftModal");
+    const modalImg = document.getElementById("modalImg");
+    modal.style.display = "block";
+    modalImg.src = this.src;
+  });
+});
+document.getElementById("modalClose").addEventListener("click", function() {
+  document.getElementById("nftModal").style.display = "none";
+});
+</script>
+<section style="text-align:center; padding: 60px 20px;">
+<h2>
+<span data-lang="en">📈 BeeInu Live Price on CoinMarketCap</span>
+<span data-lang="kr" style="display:none;">📈 BeeInu 코인마켓캡 실시간 가격</span>
+</h2>
+<a href="https://coinmarketcap.com/dexscan/Solana/FKCMMoJVoeuzrphtyPi2gg8eUnrU1kgLBHkSmeitD7TT/" style="display:inline-block; background:#facc15; color:#000; padding:14px 24px; font-size:1.1em; font-weight:bold; border-radius:12px; text-decoration:none; box-shadow: 0 4px 10px rgba(0,0,0,0.15);" target="_blank">
+    View BeeInu Price on CoinMarketCap
+  </a>
+</section>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const mascot = document.createElement("img");
+  mascot.src = "https://beeinuofficial.netlify.app/beeinu-mascot.png";
+  mascot.style.position = "fixed";
+  mascot.style.width = "80px";
+  mascot.style.zIndex = "1500";
+  mascot.style.pointerEvents = "none";
+  mascot.style.transition = "transform 0.1s ease";
+  mascot.style.transform = "translate(-50%, -50%)";
+  document.body.appendChild(mascot);
+
+  document.addEventListener("mousemove", (e) => {
+    mascot.style.left = e.clientX + "px";
+    mascot.style.top = e.clientY + "px";
+  });
+});
+</script>
+<section style="text-align:center; padding: 60px 20px;">
+<h2>
+<span data-lang="en">🔥 Trending on X</span>
+<span data-lang="kr" style="display:none;">🔥 X(트위터) 실시간 트렌딩</span>
+</h2>
+<a class="twitter-timeline" data-height="600" data-theme="light" href="https://twitter.com/beeinuofficial?ref_src=twsrc%5Etfw">
+     Tweets by @beeinuofficial
+  </a>
+</section>
+<script async="" charset="utf-8" src="https://platform.twitter.com/widgets.js"></script>
+</body>
+</html>
